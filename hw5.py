@@ -4,15 +4,13 @@ def setUp(file):
     with open(file, "r") as txt:
         whole = txt.read().split("\n")
         arr = []
-        for i in whole:
-            arr.append(i.split(";"))
-        print(arr)
+        for i in range(0, len(whole)-1):
+            arr.append(whole[i].split(";"))
         return arr
 
 data = setUp("suborDat.txt")
 
 class TestStringMethods(unittest.TestCase):
-
 
     valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '9']
     valid_chars2 = ['0', '1', '2', '3', '4', '9']
