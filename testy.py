@@ -5,9 +5,9 @@ data = setUp("suborDat.txt")
 
 class TestStringMethods(unittest.TestCase):
 
-    valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '9']
-    valid_chars2 = ['0', '1', '2', '3', '4', '9']
-    valid_chars3 = ['0', '1', '2', '3', '4', '5', '9']
+    valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '99']
+    valid_chars2 = ['0', '1', '2', '3', '4', '99']
+    valid_chars3 = ['0', '1', '2', '3', '4', '5', '99']
 
     def test_empty(self):
         self.assertFalse(not data, msg="Neboli vložené žiadne dáta")
