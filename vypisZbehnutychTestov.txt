@@ -3,7 +3,7 @@
 FAIL: test_missing_dot (__main__.TestStringMethods) (x=604)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 18, in test_missing_dot
+  File "E:/- FMFI/extremko/hw5.py", line 25, in test_missing_dot
     self.assertEqual(int(data[x][0]), int(data[x+1][0])-1, msg="Dotazník {0} neexistuje".format(int(data[x][0])+1))
 AssertionError: 604 != 605 : Dotazník 605 neexistuje
 
@@ -11,7 +11,7 @@ AssertionError: 604 != 605 : Dotazník 605 neexistuje
 FAIL: test_missing_dot (__main__.TestStringMethods) (x=1069)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 18, in test_missing_dot
+  File "E:/- FMFI/extremko/hw5.py", line 25, in test_missing_dot
     self.assertEqual(int(data[x][0]), int(data[x+1][0])-1, msg="Dotazník {0} neexistuje".format(int(data[x][0])+1))
 AssertionError: 1070 != 1071 : Dotazník 1071 neexistuje
 
@@ -19,171 +19,171 @@ AssertionError: 1070 != 1071 : Dotazník 1071 neexistuje
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=16, x=25)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 25, otázka 16: hodnota - - nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 25, otázka 16: hodnota " " nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=13, x=160)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 160, otázka 13: hodnota -98.9- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 160, otázka 13: hodnota "98.9" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=14, x=338)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 338, otázka 14: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 338, otázka 14: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=11, x=607)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 608, otázka 11: hodnota -8- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 608, otázka 11: hodnota "8" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=18, x=613)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 614, otázka 18: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 614, otázka 18: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=12, x=647)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 648, otázka 12: hodnota --3- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 648, otázka 12: hodnota "-3" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=11, x=751)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 752, otázka 11: hodnota -  - nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 752, otázka 11: hodnota "  " nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=16, x=767)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 768, otázka 16: hodnota -5- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 768, otázka 16: hodnota "5" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=17, x=928)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 929, otázka 17: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 929, otázka 17: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=18, x=928)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 929, otázka 18: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 929, otázka 18: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q10_to_q20 (__main__.TestStringMethods) (y=19, x=928)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 38, in test_q10_to_q20
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 929, otázka 19: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 45, in test_q10_to_q20
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 929, otázka 19: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q13_to_q27 (__main__.TestStringMethods) (y=27, x=787)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 50, in test_q13_to_q27
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 788, otázka 27: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 57, in test_q13_to_q27
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 788, otázka 27: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q13_to_q27 (__main__.TestStringMethods) (y=27, x=1135)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 50, in test_q13_to_q27
-    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 1137, otázka 27: hodnota -6- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 57, in test_q13_to_q27
+    self.assertTrue(data[x][y] in self.__class__.valid_chars2, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 1137, otázka 27: hodnota "6" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q1_to_q9 (__main__.TestStringMethods) (y=4, x=162)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 30, in test_q1_to_q9
-    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 162, otázka 4: hodnota -x- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 37, in test_q1_to_q9
+    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 162, otázka 4: hodnota "x" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q1_to_q9 (__main__.TestStringMethods) (y=1, x=328)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 30, in test_q1_to_q9
-    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 328, otázka 1: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 37, in test_q1_to_q9
+    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 328, otázka 1: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q1_to_q9 (__main__.TestStringMethods) (y=9, x=652)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 30, in test_q1_to_q9
-    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 653, otázka 9: hodnota -8- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 37, in test_q1_to_q9
+    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 653, otázka 9: hodnota "8" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q28_to_q36 (__main__.TestStringMethods) (y=36, x=733)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 57, in test_q28_to_q36
-    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 734, otázka 36: hodnota -- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 64, in test_q28_to_q36
+    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 734, otázka 36: hodnota "" nie je v zozname moznych odpovedi
 
 ======================================================================
 FAIL: test_q28_to_q36 (__main__.TestStringMethods) (y=36, x=943)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 57, in test_q28_to_q36
-    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
-AssertionError: False is not true : Dotazník 944, otázka 36: hodnota -7.- nie je v zozname moznych odpovedi
+  File "E:/- FMFI/extremko/hw5.py", line 64, in test_q28_to_q36
+    self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota \"{2}\" nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
+AssertionError: False is not true : Dotazník 944, otázka 36: hodnota "7." nie je v zozname moznych odpovedi
 
 ======================================================================
-FAIL: test_wrong_number_of__entries (__main__.TestStringMethods) (x=787)
+FAIL: test_wrong_number_of_entries (__main__.TestStringMethods) (x=787)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 23, in test_wrong_number_of__entries
+  File "E:/- FMFI/extremko/hw5.py", line 30, in test_wrong_number_of_entries
     self.assertEqual(len(data[x]), 37, msg="Dotazník {0} má nesprávny počet záznamov".format(data[x][0]))
 AssertionError: 28 != 37 : Dotazník 788 má nesprávny počet záznamov
 
 ======================================================================
-FAIL: test_wrong_number_of__entries (__main__.TestStringMethods) (x=1135)
+FAIL: test_wrong_number_of_entries (__main__.TestStringMethods) (x=1135)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 23, in test_wrong_number_of__entries
+  File "E:/- FMFI/extremko/hw5.py", line 30, in test_wrong_number_of_entries
     self.assertEqual(len(data[x]), 37, msg="Dotazník {0} má nesprávny počet záznamov".format(data[x][0]))
 AssertionError: 36 != 37 : Dotazník 1137 má nesprávny počet záznamov
 
 ======================================================================
-FAIL: test_wrong_number_of__entries (__main__.TestStringMethods) (x=1155)
+FAIL: test_wrong_number_of_entries (__main__.TestStringMethods) (x=1155)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:/Dokumenty/GitHub/extremko/testy.py", line 23, in test_wrong_number_of__entries
+  File "E:/- FMFI/extremko/hw5.py", line 30, in test_wrong_number_of_entries
     self.assertEqual(len(data[x]), 37, msg="Dotazník {0} má nesprávny počet záznamov".format(data[x][0]))
 AssertionError: 36 != 37 : Dotazník 1157 má nesprávny počet záznamov
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.431s
+Ran 8 tests in 3.060s
 
 FAILED (failures=23)
