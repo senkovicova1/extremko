@@ -19,6 +19,11 @@ class TestStringMethods(unittest.TestCase):
     def test_empty(self):
         self.assertFalse(not data)
 
+    def test_missing_dot(self):
+        for x in range(2, len(data)-1):
+            with self.subTest(x=x):
+                self.assertEqual(int(data[x][0]), int(data[x+1][0])-1, msg="Dotazník {0} neexistuje".format(int(data[x][0])+1))
+
     def test_q1_to_q9(self):
         for x in range(1, len(data)-1):
             with self.subTest(x=x):
