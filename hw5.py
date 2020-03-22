@@ -9,7 +9,6 @@ def setUp(file):
         return arr
 
 data = setUp("suborDat.txt")
-print(len(data))
 
 class TestStringMethods(unittest.TestCase):
 
