@@ -1,0 +1,28 @@
+Zoznam najdenych chyb:
+
+- dva neexistujuce dotazniky, resp. dve chybajuce sady odpovedi: c. 605 a c. 1071
+
+- tri sady odpovedi maju nespravny pocet odpovedi: c. 788, c. 1137 a c. 1157 
+
+- v sade odpovedi c.25 je na otazku 16 odpoved " "
+- v sade odpovedi c.160 je na otazku 13 odpoved "98.9"
+- v sade odpovedi c.162 je na otazku 4 odpoved "x"
+- v sade odpovedi c.328 je na otazku 1 odpoved ""
+- v sade odpovedi c.338 je na otazku 14 odpoved ""
+- v sade odpovedi c.608 je na otazku 11 odpoved "8"
+- v sade odpovedi c.614 je na otazku 18 odpoved ""
+- v sade odpovedi c.648 je na otazku 12 odpoved "-3"
+- v sade odpovedi c.653 je na otazku 9 odpoved "8"
+- v sade odpovedi c.734 je na otazku 36 odpoved ""
+- v sade odpovedi c.752 je na otazku 11 odpoved " "
+- v sade odpovedi c.768 je na otazku 16 odpoved "5"
+- v sade odpovedi c.788 je na otazku 27 odpoved ""
+- v sade odpovedi c.929 je na otazku 17 odpoved ""
+- v sade odpovedi c.929 je na otazku 18 odpoved ""
+- v sade odpovedi c.929 je na otazku 19 odpoved ""
+- v sade odpovedi c.944 je na otazku 36 odpoved "-."
+- v sade odpovedi c.1137 je na otazku 27 odpoved "6"
+
+Pozn.: V dotazniku bolo uvedené, že odpoveď Neviem sa označuje číslom 9. V súbore sa však miesto toho nachádza iba 99.
+Preto sme predpokladali, že 99 označuje odpoveď Neviem. Chyby hore sú s týmto predpokladom. 
+Ak by sme očakávali hodnotu 9 a nie 99, tak by nám sem pribudlo vyše 1000 miest, kde sa 99 nachádza.

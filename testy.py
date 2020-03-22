@@ -1,20 +1,13 @@
 import unittest
-
-def setUp(file):
-    with open(file, "r") as txt:
-        whole = txt.read().split("\n")
-        arr = []
-        for i in range(0, len(whole)-1):
-            arr.append(whole[i].split(";"))
-        return arr
+from nacitanie import setUp
 
 data = setUp("suborDat.txt")
 
 class TestStringMethods(unittest.TestCase):
 
-    valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '99']
-    valid_chars2 = ['0', '1', '2', '3', '4', '99']
-    valid_chars3 = ['0', '1', '2', '3', '4', '5', '99']
+    valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '9']
+    valid_chars2 = ['0', '1', '2', '3', '4', '9']
+    valid_chars3 = ['0', '1', '2', '3', '4', '5', '9']
 
     def test_empty(self):
         self.assertFalse(not data)
@@ -63,5 +56,5 @@ class TestStringMethods(unittest.TestCase):
                     with self.subTest(y=y):
                         self.assertTrue(data[x][y] in self.__class__.valid_chars, msg="Dotazník {0}, otázka {1}: hodnota -{2}- nie je v zozname moznych odpovedi".format(data[x][0], y, data[x][y]))
 
-if __name__ == '__main__':
+if __name__ == '__main__':    
     unittest.main()
