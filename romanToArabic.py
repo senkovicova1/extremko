@@ -150,7 +150,7 @@ def rimskaKalkulacka(str):
                 result = 9999
         elif operation == '*':
             result = num1 * num2
-        if 1 < result < 3999:
+        if 1 <= result <= 3999:
             return intToRoman(result)
         else:
             return "Číslo mimo"
