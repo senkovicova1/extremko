@@ -150,7 +150,7 @@ def rimskaKalkulacka(str):
                 result = 9999
         elif operation == '*':
             result = num1 * num2
-        if 1 < result < 3999:
+        if 1 <= result <= 3999:
             return intToRoman(result)
         else:
             return "Číslo mimo"
@@ -256,6 +256,9 @@ class TestStringMethods(unittest.TestCase):
     def test_upper31(self):
         self.assertEqual(41, convertToInt('XLI'))
 
+    def test_upper45(self):
+        self.assertEqual(49, convertToInt('XLIX'))
+
     def test_upper32(self):
         self.assertEqual(-9999, convertToInt('VIIII'))
 
@@ -294,6 +297,42 @@ class TestStringMethods(unittest.TestCase):
 
     def test_upper44(self):
         self.assertEqual("Zlý vstup", rimskaKalkulacka("X/V/II"))
+
+    def test_upper46(self):
+        self.assertEqual("I", rimskaKalkulacka("L-XLIX"))
+        
+    def test_upper47(self):
+        self.assertEqual("XCIX", rimskaKalkulacka("L+XLIX"))
+
+    def test_upper48(self):
+        self.assertEqual("V", rimskaKalkulacka("XX/IV"))
+
+    def test_upper49(self):
+        self.assertEqual("MMMCMXCVIII", rimskaKalkulacka("MMMCMXCIX-I"))
+
+    def test_upper50(self):
+        self.assertEqual("Číslo mimo", rimskaKalkulacka("MMMCMXCIX+I"))
+
+    def test_upper51(self):
+        self.assertEqual("MMMCMXCIX", rimskaKalkulacka("MMMCMXCIX*I"))
+
+    def test_upper52(self):
+        self.assertEqual("MMMCMXCIX", rimskaKalkulacka("MMMCMXCIX/I"))
+
+    def test_upper53(self):
+        self.assertEqual("Číslo mimo", rimskaKalkulacka("MLC/C"))
+
+    def test_upper54(self):
+        self.assertEqual("Číslo mimo", rimskaKalkulacka("M-M"))
+
+    def test_upper54(self):
+        self.assertEqual("I", rimskaKalkulacka("M-CMXCIX"))
+
+    def test_upper55(self):
+        self.assertEqual("Zlý vstup", rimskaKalkulacka("XX//IV"))
+
+    def test_upper56(self):
+        self.assertEqual("Zlý vstup", rimskaKalkulacka("-XX/IV"))
 
 
 if __name__ == '__main__':
