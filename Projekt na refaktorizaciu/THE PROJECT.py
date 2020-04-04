@@ -2,19 +2,27 @@ import tkinter, time, threading, math, time, random
 from random import choice as randChoice
 from PIL import Image, ImageTk
 
+canvasHeight = 400
+canvasWidth = 600
+imageCoordsX = 300
+imageCoordsY = 200
+sleepTime = 2
+timeConversionConstant = 60
 
-class Tehlicky(tkinter.Canvas):    
+
+class Tehlicky(tkinter.Canvas):
+
     def __init__(self):
         self.playerName = ""
-    
-        self.canvas = tkinter.Canvas(bg="light cyan", height=400, width=600)
+        self.canvas = tkinter.Canvas(bg="light cyan", height=canvasHeight, width=canvasWidth)
         self.width, self.height = int(self.canvas["width"]), int(self.canvas["height"])
-        self.canvas.pack()   
-        
-        for i in range(16):
+        self.canvas.pack()
+
+        numOfLoadingPictures = 16
+        for i in range(numOfLoadingPictures):
             self.canvas.delete("all")
             picture = ImageTk.PhotoImage(Image.open("load{}.bmp".format(i)))
-            self.canvas.create_image(300,200, image=picture)
+            self.canvas.create_image(imageCoordsX,imageCoordsY, image=picture)
             self.canvas.update()
             self.canvas.after(random.randrange(80,300))
         self.canvas.delete("all")
@@ -63,20 +71,23 @@ class Tehlicky(tkinter.Canvas):
     def namePlayer(self, event):              
         self.canvas.bind_all("<Return>", self.buildGame)             
         key = event.keysym
-        
+
+        nameQuestionCoordsX = self.width/2
+        nameQuestionCoordsY = 40
+        nameCoordsX = 300
+        nameCoordsY = 200
         if key in "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789":
             self.canvas.delete("all")
-            self.canvas.create_text(self.width//2, 40, text = "What is your name?", font = "Papyrus 30")
+            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text = "What is your name?", font = "Papyrus 30")
             self.playerName += key
-            self.canvas.create_text(300, 200, text = self.playerName, font = "Papyrus 20")                   
+            self.canvas.create_text(nameCoordsX, nameCoordsY, text = self.playerName, font = "Papyrus 20")
             
         elif key == "BackSpace":
             self.canvas.delete("all")
-            self.canvas.create_text(self.width//2, 40, text = "What is your name?", font = "Papyrus 30")
+            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text = "What is your name?", font = "Papyrus 30")
             self.playerName = self.playerName[0:len(self.playerName)-1]
-            self.canvas.create_text(300, 200, text = self.playerName, font = "Papyrus 20")
-      
-                      
+            self.canvas.create_text(nameCoordsX, nameCoordsY, text = self.playerName, font = "Papyrus 20")
+
     def buildGame(self, event):        
         self.canvas.delete("all")
         self.canvas["bg"] = "light cyan"
@@ -84,7 +95,7 @@ class Tehlicky(tkinter.Canvas):
         tempTehlyCoords = []
         tempTehly = []
         x, y =  0, 0
-        for i in range(6):
+        for i in range(len(self.farby)):
             while (x + self.tehlaWidth) <= self.width:
                 self.tehla = self.canvas.create_rectangle(x, y,
                                                           x + self.tehlaWidth, y + self.tehlaHeight,
@@ -112,10 +123,11 @@ class Tehlicky(tkinter.Canvas):
 
 
     def accelerationCounter(self):
+        accelerationLimit = 0.009
         self.acceleration = 0.035        
-        while self.acceleration > 0.009:
+        while self.acceleration > accelerationLimit:
             self.acceleration -= 0.002        
-            time.sleep(1)
+            time.sleep(sleepTime/2)
         
 
 ## ----- platform:
@@ -145,7 +157,8 @@ class Tehlicky(tkinter.Canvas):
             self.canvas.move(self.ball, self.ballXDirection, self.ballYDirection)
             self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY + self.ballYDirection
             time.sleep(self.acceleration)
-            if self.ballY < 100:
+            ballYLimit = 100
+            if self.ballY < ballYLimit:
                 for i in range(len(self.tehlyCoords)):
                     for j in range(len(self.tehlyCoords[i])):
                         if self.tehly[i][j] != None:
@@ -165,13 +178,13 @@ class Tehlicky(tkinter.Canvas):
                                 time.sleep(self.acceleration)
 
 
-            if (self.ballX - (self.ballWidth // 2) <= 1) or self.ballX + (self.ballWidth // 2) >= self.width - 1:
+            elif (self.ballX - (self.ballWidth // 2) <= 1) or self.ballX + (self.ballWidth // 2) >= self.width - 1:
                 self.ballXDirection = -self.ballXDirection
                 self.canvas.move(self.ball, self.ballXDirection,self.ballYDirection)
                 self.ballX,self.ballY = self.ballX + self.ballXDirection,self.ballY +self.ballYDirection
                 time.sleep(self.acceleration)
 
-            elif self.ballY >= (self.height - 100):
+            elif self.ballY >= (self.height - ballYLimit):
                 doskaCoords = self.canvas.coords(self.doska)
                
                 if ((doskaCoords[0]  <= self.ballX <= doskaCoords[2] ) or (doskaCoords[0] <= self.ballX - math.ceil(self.ballWidth/2) <= doskaCoords[2]) or (doskaCoords[0]<= self.ballX + math.ceil(self.ballWidth/2) <= doskaCoords[2])) and  doskaCoords[1] <=self.ballY + 1 + math.ceil(self.ballHeight / 2):
@@ -227,7 +240,7 @@ class Tehlicky(tkinter.Canvas):
                 "Good luck.")
         text = ""
         for i in range(len(endSpeech)):
-            time.sleep(2)
+            time.sleep(sleepTime)
             self.canvas.delete(text)
             farba = "white"
             if "*" in endSpeech[i]: farba = "grey"
@@ -235,7 +248,7 @@ class Tehlicky(tkinter.Canvas):
                                            text=endSpeech[i],
                                            font="Papyrus 20 bold",
                                            fill=farba)
-        time.sleep(2)
+        time.sleep(sleepTime)
         self.canvas.delete("all")
         self.highScore()
 
@@ -252,7 +265,7 @@ class Tehlicky(tkinter.Canvas):
                 "Thank you for playing.", "Have a nice day. :)")
         text = ""        
         for i in endSpeech:
-            time.sleep(2)
+            time.sleep(sleepTime)
             self.canvas.delete(text)
             farba = "SteelBlue1"
             if "~" in i:
@@ -262,13 +275,13 @@ class Tehlicky(tkinter.Canvas):
                                                font="Papyrus 35 bold",
                                                fill=farba)
                 spacePicture = ImageTk.PhotoImage(Image.open("SpaceCore.jpg"))
-                self.canvas.create_image(300,200, image=spacePicture)                
-                time.sleep(1)
+                self.canvas.create_image(imageCoordsX,imageCoordsY, image=spacePicture)
+                time.sleep(sleepTime/2)
                 text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2 + 150,
                                                text="I`m in space! Need to see it all!",
                                                font="Papyrus 15 bold",
                                                fill="grey")
-                time.sleep(2)
+                time.sleep(sleepTime)
                 self.canvas.delete("all")
             else:
                 text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
@@ -276,7 +289,7 @@ class Tehlicky(tkinter.Canvas):
                                                font="Papyrus 20 bold",
                                                fill=farba)
 
-        time.sleep(2)
+        time.sleep(sleepTime)
         self.canvas.delete("all")
         self.highScore()
 
@@ -314,18 +327,20 @@ class Tehlicky(tkinter.Canvas):
 
     def cas(self):
         countDown = None
-
-        for i in range(3, 0, -1):
+        countDownStart = 3
+        countDownFinish = 0
+        countDownReduction = -1
+        for i in range(countDownStart, countDownFinish, countDownReduction):
             self.canvas.delete(countDown)
             countDown = self.canvas.create_text(int(self.canvas["width"]) // 2,
                                                  int(self.canvas["height"]) // 2,
                                                  text=str(i), font="Papyrus 40 bold")
-            time.sleep(1)
+            time.sleep(sleepTime/2)
         self.canvas.delete(countDown)
         countDown = self.canvas.create_text(int(self.canvas["width"]) // 2,
                                              int(self.canvas["height"]) // 2,
                                              text="Start!", font="Papyrus 40 bold")
-        time.sleep(1)
+        time.sleep(sleepTime/2)
         self.canvas.delete(countDown)        
         self.circleBuild()
         time.sleep(0.3)       
@@ -343,6 +358,7 @@ class Tehlicky(tkinter.Canvas):
 
 
 class Word:
+
     def __init__(self, cas, meno):
         self.cas = cas
         self.meno = meno
@@ -351,8 +367,8 @@ class Word:
         self.createEntry(self.cas, self.meno)
 
     def createEntry(self, cas, meno):
-        minuty = cas // 60
-        sekundy = cas % 60
+        minuty = cas // timeConversionConstant
+        sekundy = cas % timeConversionConstant
         if len(str(sekundy)) ==1: sekundy = "0" + str(sekundy)
         entry = str(meno) + " " + str(minuty) + ":" + str(sekundy) + "\n"
         self.zapis(entry)
