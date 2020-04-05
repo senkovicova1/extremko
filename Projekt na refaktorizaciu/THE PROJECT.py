@@ -1,4 +1,4 @@
-import tkinter, time, threading, math, time, random
+import tkinter, threading, math, time, random
 from random import choice as randChoice
 from PIL import Image, ImageTk
 
@@ -8,6 +8,10 @@ imageCoordsX = 300
 imageCoordsY = 200
 sleepTime = 2
 timeConversionConstant = 60
+nameQuestionCoordsX = canvasWidth / 2
+nameQuestionCoordsY = 40
+textCoordsX = 300
+textCoordsY = 200
 
 
 class Tehlicky(tkinter.Canvas):
@@ -15,26 +19,25 @@ class Tehlicky(tkinter.Canvas):
     def __init__(self):
         self.playerName = ""
         self.canvas = tkinter.Canvas(bg="light cyan", height=canvasHeight, width=canvasWidth)
-        self.width, self.height = int(self.canvas["width"]), int(self.canvas["height"])
         self.canvas.pack()
 
         numOfLoadingPictures = 16
-        for i in range(numOfLoadingPictures):
+        for loadingPic in range(numOfLoadingPictures):
             self.canvas.delete("all")
-            picture = ImageTk.PhotoImage(Image.open("load{}.bmp".format(i)))
-            self.canvas.create_image(imageCoordsX,imageCoordsY, image=picture)
+            picture = ImageTk.PhotoImage(Image.open("load{}.bmp".format(loadingPic)))
+            self.canvas.create_image(imageCoordsX, imageCoordsY, image=picture)
             self.canvas.update()
-            self.canvas.after(random.randrange(80,300))
+            self.canvas.after(random.randrange(80, 300))
         self.canvas.delete("all")
 
         self.farby = ["Navy", "medium blue", "blue", "RoyalBlue1", "SteelBlue1", "SkyBlue1"]
         self.tehly, self.tehla, self.tehlyCoords = [], "", []
         self.tehlaWidth, self.tehlaHeight = 30, 15
-        self.readyGame()        
+        self.readyGame()
         self.canvas.mainloop()
 
     def readyGame(self):
-        self.canvas.create_text(self.width / 2, 30,
+        self.canvas.create_text(textCoordsX, 30,
                                 text="Welcome, player!", font="Papyrus 30")
         self.canvas.create_text(60, 80,
                                 text="Some Info:", font="Papyrus 15 bold")
@@ -43,63 +46,64 @@ class Tehlicky(tkinter.Canvas):
         self.canvas.create_text(185, 110,
                                 text="platform", fill="gold", font="Papyrus 15 bold")
         self.canvas.create_text(275, 140,
-                                text="* you can hit the             once, meaning you have 1 extra life", font="Papyrus 15")
+                                text="* you can hit the             once, meaning you have 1 extra life",
+                                font="Papyrus 15")
         self.canvas.create_text(193, 140,
                                 text="ground", fill="green3", font="Papyrus 15 bold")
-        self.canvas.create_text(225, 170, text="* but then the               breaks and          appears", font="Papyrus 15")
+        self.canvas.create_text(225, 170, text="* but then the               breaks and          appears",
+                                font="Papyrus 15")
         self.canvas.create_text(170, 170,
                                 text="ground", fill="green3", font="Papyrus 15 bold")
         self.canvas.create_text(340, 170, text="lava", fill="red", font="Papyrus 15 bold")
         self.canvas.create_text(450, 200, text="und das ist nicht gut", fill="red", font="Papyrus 15 bold")
         self.canvas.create_text(100, 240, text="Goal of this game?", font="Papyrus 15 bold")
-        self.canvas.create_text(260, 270, text="* break through the Earth`s atmosphere and go to space", font="Papyrus 15")
+        self.canvas.create_text(260, 270, text="* break through the Earth`s atmosphere and go to space",
+                                font="Papyrus 15")
         self.canvas.create_text(185, 300, text="* btw, do not destroy it all or you will lose", font="Papyrus 15")
-        self.canvas.create_text(300, 330, text="* we down here will still need some of it to protect us from UV & stuff", font="Papyrus 15")
+        self.canvas.create_text(300, 330,
+                                text="* we down here will still need some of it to protect us from UV & stuff",
+                                font="Papyrus 15")
         self.canvas.create_text(300, 370, text="Press Enter whenever you feel like it~", font="Papyrus 15 bold")
 
-        self.canvas.bind_all("<Key>", self.delete)        
-    
-
+        self.canvas.bind_all("<Key>", self.delete)
 
     def delete(self, event):
         self.canvas.delete("all")
         self.canvas["bg"] = "light cyan"
-        self.canvas.create_text(self.width//2, 40, text = "What is your name?", font = "Papyrus 30")
+        self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text="What is your name?", font="Papyrus 30")
         self.canvas.bind_all("<Key>", self.namePlayer)
         self.canvas.bind_all("<Return>", self.buildGame)
 
-    def namePlayer(self, event):              
-        self.canvas.bind_all("<Return>", self.buildGame)             
+    def namePlayer(self, event):
+        self.canvas.bind_all("<Return>", self.buildGame)
         key = event.keysym
 
-        nameQuestionCoordsX = self.width/2
-        nameQuestionCoordsY = 40
-        nameCoordsX = 300
-        nameCoordsY = 200
-        if key in "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789":
+        if key.isalnum():
             self.canvas.delete("all")
-            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text = "What is your name?", font = "Papyrus 30")
+            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text="What is your name?",
+                                    font="Papyrus 30")
             self.playerName += key
-            self.canvas.create_text(nameCoordsX, nameCoordsY, text = self.playerName, font = "Papyrus 20")
-            
+            self.canvas.create_text(textCoordsX, textCoordsY, text=self.playerName, font="Papyrus 20")
+
         elif key == "BackSpace":
             self.canvas.delete("all")
-            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text = "What is your name?", font = "Papyrus 30")
-            self.playerName = self.playerName[0:len(self.playerName)-1]
-            self.canvas.create_text(nameCoordsX, nameCoordsY, text = self.playerName, font = "Papyrus 20")
+            self.canvas.create_text(nameQuestionCoordsX, nameQuestionCoordsY, text="What is your name?",
+                                    font="Papyrus 30")
+            self.playerName = self.playerName[0:len(self.playerName) - 1]
+            self.canvas.create_text(textCoordsX, textCoordsY, text=self.playerName, font="Papyrus 20")
 
-    def buildGame(self, event):        
+    def buildGame(self, event):
         self.canvas.delete("all")
         self.canvas["bg"] = "light cyan"
         self.canvas.unbind_all('<Key>')
         tempTehlyCoords = []
         tempTehly = []
-        x, y =  0, 0
-        for i in range(len(self.farby)):
-            while (x + self.tehlaWidth) <= self.width:
+        x, y = 0, 0
+        for farba in range(len(self.farby)):
+            while (x + self.tehlaWidth) <= canvasWidth:
                 self.tehla = self.canvas.create_rectangle(x, y,
                                                           x + self.tehlaWidth, y + self.tehlaHeight,
-                                                          fill=self.farby[i], outline="")
+                                                          fill=self.farby[farba], outline="")
                 tempTehlyCoords.append((x, y))
                 tempTehly.append(self.tehla)
                 x += self.tehlaWidth
@@ -108,49 +112,51 @@ class Tehlicky(tkinter.Canvas):
             x = 0
             y += self.tehlaHeight
 
-        self.grass = self.canvas.create_rectangle(0, self.height - 40, self.width, self.height - 30,
+        grassTop = canvasHeight - 40
+        grassBottom = canvasHeight - 30
+        groundBottom = canvasHeight - 20
+        self.grass = self.canvas.create_rectangle(0, grassTop, canvasWidth, grassBottom,
                                                   fill="green3", outline="")
-        self.ground = self.canvas.create_rectangle(0, self.height - 30, self.width, self.height - 20,
+        self.ground = self.canvas.create_rectangle(0, grassBottom, canvasWidth, groundBottom,
                                                    fill="NavajoWhite4", outline="")
-        self.lava = self.canvas.create_rectangle(0, self.height - 20, self.width, self.height,
+        self.lava = self.canvas.create_rectangle(0, groundBottom, canvasWidth, canvasHeight,
                                                  fill="red", outline="")
-
         self.groundLevel = [self.grass]
-
         self.doskaBuild()
         stopky = threading.Thread(target=self.cas, args=())
         stopky.start()
 
-
     def accelerationCounter(self):
         accelerationLimit = 0.009
-        self.acceleration = 0.035        
+        self.acceleration = 0.035
         while self.acceleration > accelerationLimit:
-            self.acceleration -= 0.002        
-            time.sleep(sleepTime/2)
-        
+            self.acceleration -= 0.002
+            time.sleep(sleepTime / 2)
 
-## ----- platform:
+    ## ----- platform:
 
     def doskaBuild(self):
         self.doskaX, self.doskaY, self.doskaWidth, self.doskaHeight = 300, 350, 80, 10
-        self.doska = self.canvas.create_rectangle(self.doskaX - (self.doskaWidth // 2), self.doskaY - (self.doskaHeight // 2),
-                                                self.doskaX + (self.doskaWidth // 2), self.doskaY + (self.doskaHeight // 2),
-                                                fill="gold")
+        self.doska = self.canvas.create_rectangle(self.doskaX - (self.doskaWidth // 2),
+                                                  self.doskaY - (self.doskaHeight // 2),
+                                                  self.doskaX + (self.doskaWidth // 2),
+                                                  self.doskaY + (self.doskaHeight // 2),
+                                                  fill="gold")
 
-    def doskaMove(self, event):        
+    def doskaMove(self, event):
         distance = event.x - self.doskaX
         self.canvas.move(self.doska, distance, 0)
         self.doskaX = event.x
 
-## ----- circle:
+    ## ----- circle:
 
     def circleBuild(self):
         directions = (-2, -1, 1, 2)
-        self.ballX, self.ballY, self.ballXDirection, self.ballYDirection, self.ballWidth, self.ballHeight = 300, 200, randChoice(directions), randChoice(directions), 20, 20
-        self.ball = self.canvas.create_oval(self.ballX - (self.ballWidth // 2),self.ballY - (self.ballHeight // 2),
-                                           self.ballX + (self.ballWidth // 2), self.ballY + (self.ballHeight // 2),
-                                           fill="grey", outline="")
+        self.ballX, self.ballY, self.ballXDirection, self.ballYDirection, self.ballWidth, self.ballHeight = 300, 200, randChoice(
+            directions), randChoice(directions), 20, 20
+        self.ball = self.canvas.create_oval(self.ballX - (self.ballWidth // 2), self.ballY - (self.ballHeight // 2),
+                                            self.ballX + (self.ballWidth // 2), self.ballY + (self.ballHeight // 2),
+                                            fill="grey", outline="")
 
     def circleMove(self):
         while self.gameOngoing:
@@ -159,93 +165,97 @@ class Tehlicky(tkinter.Canvas):
             time.sleep(self.acceleration)
             ballYLimit = 100
             if self.ballY < ballYLimit:
-                for i in range(len(self.tehlyCoords)):
-                    for j in range(len(self.tehlyCoords[i])):
-                        if self.tehly[i][j] != None:
-                            if (self.tehlyCoords[i][j][0]) <= self.ballX <= ((self.tehlyCoords[i][j][0]) + self.tehlaWidth) and (self.tehlyCoords[i][j][1]) <= self.ballY - (self.ballHeight // 2) <= ((self.tehlyCoords[i][j][1]) + self.tehlaHeight):
-                                if self.ballX >= (self.tehlyCoords[i][j][0] + self.tehlaWidth) or self.ballX <= (self.tehlyCoords[i][j][0]):
+                for tehla in range(len(self.tehlyCoords)):
+                    for tehlaCoords in range(len(self.tehlyCoords[tehla])):
+                        if self.tehly[tehla][tehlaCoords] != None:
+                            tehlaCoordsX = self.tehlyCoords[tehla][tehlaCoords][0]
+                            tehlaCoordsY = self.tehlyCoords[tehla][tehlaCoords][1]
+                            if (tehlaCoordsX) <= self.ballX <= ((tehlaCoordsX) + self.tehlaWidth) and (tehlaCoordsY) <= self.ballY - (self.ballHeight // 2) <= ((tehlaCoordsY) + self.tehlaHeight):
+                                if self.ballX >= (tehlaCoordsX + self.tehlaWidth) or self.ballX <= (tehlaCoordsX):
                                     self.ballXDirection = -self.ballXDirection
                                 else:
-                                   self.ballYDirection = -self.ballYDirection
+                                    self.ballYDirection = -self.ballYDirection
 
-                                rowTehly = self.tehly.pop(i)
-                                brokenTehla = rowTehly.pop(j)
-                                rowTehly.insert(j, None)
+                                rowTehly = self.tehly.pop(tehla)
+                                brokenTehla = rowTehly.pop(tehlaCoords)
+                                rowTehly.insert(tehlaCoords, None)
                                 self.canvas.delete(brokenTehla)
-                                self.tehly.insert(i, rowTehly)
-                                self.canvas.move(self.ball, self.ballXDirection,self.ballYDirection)
-                                self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY +self.ballYDirection
+                                self.tehly.insert(tehla, rowTehly)
+                                self.canvas.move(self.ball, self.ballXDirection, self.ballYDirection)
+                                self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY + self.ballYDirection
                                 time.sleep(self.acceleration)
 
 
-            elif (self.ballX - (self.ballWidth // 2) <= 1) or self.ballX + (self.ballWidth // 2) >= self.width - 1:
+            elif (self.ballX - (self.ballWidth // 2) <= 1) or self.ballX + (self.ballWidth // 2) >= canvasWidth - 1:
                 self.ballXDirection = -self.ballXDirection
-                self.canvas.move(self.ball, self.ballXDirection,self.ballYDirection)
-                self.ballX,self.ballY = self.ballX + self.ballXDirection,self.ballY +self.ballYDirection
+                self.canvas.move(self.ball, self.ballXDirection, self.ballYDirection)
+                self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY + self.ballYDirection
                 time.sleep(self.acceleration)
 
-            elif self.ballY >= (self.height - ballYLimit):
+            elif self.ballY >= (canvasHeight - ballYLimit):
                 doskaCoords = self.canvas.coords(self.doska)
-               
-                if ((doskaCoords[0]  <= self.ballX <= doskaCoords[2] ) or (doskaCoords[0] <= self.ballX - math.ceil(self.ballWidth/2) <= doskaCoords[2]) or (doskaCoords[0]<= self.ballX + math.ceil(self.ballWidth/2) <= doskaCoords[2])) and  doskaCoords[1] <=self.ballY + 1 + math.ceil(self.ballHeight / 2):
-                    if self.ballX + math.ceil(self.ballWidth/2) <= doskaCoords[0] or self.ballX - math.ceil(self.ballWidth/2) >= doskaCoords[2] :
+
+                if ((doskaCoords[0] <= self.ballX <= doskaCoords[2]) or (
+                        doskaCoords[0] <= self.ballX - math.ceil(self.ballWidth / 2) <= doskaCoords[2]) or (
+                            doskaCoords[0] <= self.ballX + math.ceil(self.ballWidth / 2) <= doskaCoords[2])) and \
+                        doskaCoords[1] <= self.ballY + 1 + math.ceil(self.ballHeight / 2):
+                    if self.ballX + math.ceil(self.ballWidth / 2) <= doskaCoords[0] or self.ballX - math.ceil(
+                            self.ballWidth / 2) >= doskaCoords[2]:
                         self.ballXDirection = -self.ballXDirection
                     else:
-                       self.ballYDirection = -self.ballYDirection
-
+                        self.ballYDirection = -self.ballYDirection
 
                 if self.grass in self.groundLevel:
-                    if self.ballY + (self.ballHeight // 2) >= self.height - 39:
+                    if self.ballY + (self.ballHeight // 2) >= canvasHeight - 39:
                         self.ballYDirection = -self.ballYDirection
-                        self.canvas.move(self.ball, self.ballXDirection,self.ballYDirection)
-                        self.ballX,self.ballY = self.ballX + self.ballXDirection,self.ballY +self.ballYDirection
+                        self.canvas.move(self.ball, self.ballXDirection, self.ballYDirection)
+                        self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY + self.ballYDirection
                         time.sleep(self.acceleration)
                         self.grassTouched = threading.Thread(target=self.firstFall, args=())
                         self.grassTouched.start()
 
                 elif self.lava in self.groundLevel:
-                    if self.ballY + (self.ballHeight // 2) >= self.height - 20:                        
+                    if self.ballY + (self.ballHeight // 2) >= canvasHeight - 20:
                         self.gameLost()
 
             elif self.ballY - self.tehlaHeight <= 0:
                 self.gameWon()
 
-                
-## ----------------------
-                
+    ## ----------------------
+
     def firstFall(self):
         self.groundLevel.pop()
         self.groundLevel.append(self.lava)
         self.canvas.delete(self.grass)
         self.canvas.delete(self.ground)
-        text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
+        text = self.canvas.create_text(textCoordsX, textCoordsY,
                                        text="Uh oh. Is it so hot in here or is it just me?",
                                        font="Papyrus 20 bold",
                                        fill="red")
         time.sleep(5)
         self.canvas.delete(text)
 
-
-    def gameLost(self):        
+    def gameLost(self):
         self.end = round(time.time() - self.start)
         self.canvas.delete("all")
         self.gameOngoing = False
         self.canvas.unbind_all('<Key>')
         self.canvas["bg"] = "black"
         endSpeech = ("*sad music starts playing*",
-                "So... ", "You didn`t make it, huh?",
-                "I`m sorry about that..", "that`s life, though.",
-                "But... ", "*hopeful music starts playing*", "Always look on the bright side of life, right?",
-                "...and start the game again, ok?",
-                "Good luck.")
+                     "So... ", "You didn`t make it, huh?",
+                     "I`m sorry about that..", "that`s life, though.",
+                     "But... ", "*hopeful music starts playing*", "Always look on the bright side of life, right?",
+                     "...and start the game again, ok?",
+                     "Good luck.")
         text = ""
-        for i in range(len(endSpeech)):
+        for word in range(len(endSpeech)):
             time.sleep(sleepTime)
             self.canvas.delete(text)
             farba = "white"
-            if "*" in endSpeech[i]: farba = "grey"
-            text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
-                                           text=endSpeech[i],
+            if "*" in endSpeech[word]:
+                farba = "grey"
+            text = self.canvas.create_text(textCoordsX, textCoordsY,
+                                           text=endSpeech[word],
                                            font="Papyrus 20 bold",
                                            fill=farba)
         time.sleep(sleepTime)
@@ -260,32 +270,32 @@ class Tehlicky(tkinter.Canvas):
         self.canvas.delete("all")
         self.canvas["bg"] = "black"
         endSpeech = ("*happy music starts playing*", "Player!",
-                "You did it! ^^", "Humans of this realm are proud of you.",
-                "You may now procceed to the--", "~",
-                "Thank you for playing.", "Have a nice day. :)")
-        text = ""        
-        for i in endSpeech:
+                     "You did it! ^^", "Humans of this realm are proud of you.",
+                     "You may now procceed to the--", "~",
+                     "Thank you for playing.", "Have a nice day. :)")
+        text = ""
+        for word in endSpeech:
             time.sleep(sleepTime)
             self.canvas.delete(text)
             farba = "SteelBlue1"
-            if "~" in i:
+            if "~" in word:
                 farba = "gold"
-                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
-                                               text=i,
+                text = self.canvas.create_text(textCoordsX, textCoordsY,
+                                               text=word,
                                                font="Papyrus 35 bold",
                                                fill=farba)
                 spacePicture = ImageTk.PhotoImage(Image.open("SpaceCore.jpg"))
-                self.canvas.create_image(imageCoordsX,imageCoordsY, image=spacePicture)
-                time.sleep(sleepTime/2)
-                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2 + 150,
+                self.canvas.create_image(imageCoordsX, imageCoordsY, image=spacePicture)
+                time.sleep(sleepTime / 2)
+                text = self.canvas.create_text(textCoordsX, textCoordsY + 150,
                                                text="I`m in space! Need to see it all!",
                                                font="Papyrus 15 bold",
                                                fill="grey")
                 time.sleep(sleepTime)
                 self.canvas.delete("all")
             else:
-                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
-                                               text=i,
+                text = self.canvas.create_text(textCoordsX, textCoordsY,
+                                               text=word,
                                                font="Papyrus 20 bold",
                                                fill=farba)
 
@@ -297,64 +307,57 @@ class Tehlicky(tkinter.Canvas):
         with open("tabulka.txt", "r") as txt:
             riadok = txt.readline().strip()
             score = []
-            while riadok:                
+            while riadok:
                 menoEnd = riadok.find(" ")
                 meno = riadok[0:menoEnd]
                 timeMiddle = riadok.find(":")
-                minutes = riadok[menoEnd+1:d]
-                seconds = riadok[timeMiddle+1:len(riadok)]
+                minutes = riadok[menoEnd + 1:timeMiddle]
+                seconds = riadok[timeMiddle + 1:len(riadok)]
                 score.append((minutes, seconds, meno))
                 riadok = txt.readline().strip()
-                
+
         sortedScore = sorted(score)
 
-        self.canvas.create_text(self.width//2, 50, text = "The Best of The Best:", font = "Papyrus 30 bold", fill = "gold")
+        self.canvas.create_text(textCoordsX, 50, text="The Best of The Best:", font="Papyrus 30 bold", fill="gold")
         text = sortedScore[0][2] + " " + str(sortedScore[0][0]) + ":" + str(sortedScore[0][1])
-        self.canvas.create_text(self.width//2, 110, text = text, font = "Papyrus 20 bold", fill = "gold")
+        self.canvas.create_text(textCoordsX, 110, text=text, font="Papyrus 20 bold", fill="gold")
         text = sortedScore[1][2] + " " + str(sortedScore[1][0]) + ":" + str(sortedScore[1][1])
-        self.canvas.create_text(self.width//2, 140, text = text, font = "Papyrus 18", fill = "azure2")
+        self.canvas.create_text(textCoordsX, 140, text=text, font="Papyrus 18", fill="azure2")
         text = sortedScore[2][2] + " " + str(sortedScore[2][0]) + ":" + str(sortedScore[2][1])
-        self.canvas.create_text(self.width//2, 170, text = text, font = "Papyrus 17", fill = "tan1")
+        self.canvas.create_text(textCoordsX, 170, text=text, font="Papyrus 17", fill="tan1")
 
         for line in range(3, 9):
             text = sortedScore[line][2] + " " + str(sortedScore[line][0]) + ":" + str(sortedScore[line][1])
-            self.canvas.create_text(self.width//2, 140 + line*25, text = text, font = "Papyrus 15", fill = "white")
-        
-        
+            self.canvas.create_text(textCoordsX, 140 + line * 25, text=text, font="Papyrus 15", fill="white")
 
-    
-## ----- general
+    ## ----- general
 
     def cas(self):
         countDown = None
         countDownStart = 3
         countDownFinish = 0
         countDownReduction = -1
-        for i in range(countDownStart, countDownFinish, countDownReduction):
+        for numCountDown in range(countDownStart, countDownFinish, countDownReduction):
             self.canvas.delete(countDown)
-            countDown = self.canvas.create_text(int(self.canvas["width"]) // 2,
-                                                 int(self.canvas["height"]) // 2,
-                                                 text=str(i), font="Papyrus 40 bold")
-            time.sleep(sleepTime/2)
+            countDown = self.canvas.create_text(textCoordsX, textCoordsY,
+                                                text=str(numCountDown), font="Papyrus 40 bold")
+            time.sleep(sleepTime / 2)
         self.canvas.delete(countDown)
-        countDown = self.canvas.create_text(int(self.canvas["width"]) // 2,
-                                             int(self.canvas["height"]) // 2,
-                                             text="Start!", font="Papyrus 40 bold")
-        time.sleep(sleepTime/2)
-        self.canvas.delete(countDown)        
+        countDown = self.canvas.create_text(textCoordsX, textCoordsY,
+                                            text="Start!", font="Papyrus 40 bold")
+        time.sleep(sleepTime / 2)
+        self.canvas.delete(countDown)
         self.circleBuild()
-        time.sleep(0.3)       
-        
+        time.sleep(0.3)
 
         self.canvas.bind('<Button-1>', self.doskaMove)
-        
+
         self.cas = threading.Thread(target=self.accelerationCounter, args=())
         self.cas.start()
         self.start = time.time()
 
-        self.gameOngoing = True        
+        self.gameOngoing = True
         self.circleMove()
-
 
 
 class Word:
@@ -369,16 +372,16 @@ class Word:
     def createEntry(self, cas, meno):
         minuty = cas // timeConversionConstant
         sekundy = cas % timeConversionConstant
-        if len(str(sekundy)) ==1: sekundy = "0" + str(sekundy)
+        if len(str(sekundy)) == 1: sekundy = "0" + str(sekundy)
         entry = str(meno) + " " + str(minuty) + ":" + str(sekundy) + "\n"
         self.zapis(entry)
-        
+
     def zapis(self, entry):
         with open("tabulka.txt", "a") as leaderBoard:
-            leaderBoard.write(entry)            
-                      
-Tehlicky()
+            leaderBoard.write(entry)
 
+
+Tehlicky()
 
 ##import tkinter, time, threading, math, time, random
 ##from random import choice as rc
@@ -388,7 +391,8 @@ Tehlicky()
 ##class Tehlicky(tkinter.Canvas):    
 ##    def __init__(self):
 ##        self.canvas = tkinter.Canvas(bg="light cyan", height=400, width=600)
-##        self.w, self.h = int(self.canvas["width"]), int(self.canvas["height"])
+##        self.w, self.h = canvasWidth
+# , canvasHeig
 ##        self.canvas.pack()   
 ##        
 ##        for i in range(16):
@@ -598,7 +602,8 @@ Tehlicky()
 ##        self.zlepole.append(self.lava)
 ##        self.canvas.delete(self.grass)
 ##        self.canvas.delete(self.ground)
-##        text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
+##        text = self.canvas.create_text(canvasWidth
+# // 2, canvasHeight // 2,
 ##                                       text="Uh oh. Is it so hot in here or is it just me?",
 ##                                       font="Papyrus 20 bold",
 ##                                       fill="red")
@@ -623,7 +628,8 @@ Tehlicky()
 ##            self.canvas.delete(text)
 ##            farba = "white"
 ##            if "*" in vety[i]: farba = "grey"
-##            text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
+##            text = self.canvas.create_text(canvasWidth
+# // 2, canvasHeight // 2,
 ##                                           text=vety[i],
 ##                                           font="Papyrus 20 bold",
 ##                                           fill=farba)
@@ -649,21 +655,24 @@ Tehlicky()
 ##            farba = "SteelBlue1"
 ##            if "~" in i:
 ##                farba = "gold"
-##                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
+##                text = self.canvas.create_text(canvasWidth
+# // 2, canvasHeight // 2,
 ##                                               text=i,
 ##                                               font="Papyrus 35 bold",
 ##                                               fill=farba)
 ##                obr2 = ImageTk.PhotoImage(Image.open("SpaceCore.jpg"))
 ##                self.canvas.create_image(300,200, image=obr2)                
 ##                time.sleep(1)
-##                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2 + 150,
+##                text = self.canvas.create_text(canvasWidth
+# // 2, canvasHeight // 2 + 150,
 ##                                               text="I`m in space! Need to see it all!",
 ##                                               font="Papyrus 15 bold",
 ##                                               fill="grey")
 ##                time.sleep(2)
 ##                self.canvas.delete("all")
 ##            else:
-##                text = self.canvas.create_text(int(self.canvas["width"]) // 2, int(self.canvas["height"]) // 2,
+##                text = self.canvas.create_text(canvasWidth
+# // 2, canvasHeight // 2,
 ##                                               text=i,
 ##                                               font="Papyrus 20 bold",
 ##                                               fill=farba)
@@ -709,13 +718,15 @@ Tehlicky()
 ##
 ##        for i in range(3, 0, -1):
 ##            self.canvas.delete(self.cislo)
-##            self.cislo = self.canvas.create_text(int(self.canvas["width"]) // 2,
-##                                                 int(self.canvas["height"]) // 2,
+##            self.cislo = self.canvas.create_text(canvasWidth
+# // 2,
+##                                                 canvasHeight // 2,
 ##                                                 text=str(i), font="Papyrus 40 bold")
 ##            time.sleep(1)
 ##        self.canvas.delete(self.cislo)
-##        self.cislo = self.canvas.create_text(int(self.canvas["width"]) // 2,
-##                                             int(self.canvas["height"]) // 2,
+##        self.cislo = self.canvas.create_text(canvasWidth
+# // 2,
+##                                             canvasHeight // 2,
 ##                                             text="Start!", font="Papyrus 40 bold")
 ##        time.sleep(1)
 ##        self.canvas.delete(self.cislo)        
@@ -758,5 +769,4 @@ Tehlicky()
 ##
 ##Tehlicky()
 ##
-##    
-
+##
