@@ -122,8 +122,8 @@ class Tehlicky(tkinter.Canvas):
         self.lava = self.canvas.create_rectangle(0, groundBottom, canvasWidth, canvasHeight,
                                                  fill="red", outline="")
         self.groundLevel = [self.grass]
-        self.doskaBuild()
-        stopky = threading.Thread(target=self.cas, args=())
+        self.platformBuild()
+        stopky = threading.Thread(target=self.time, args=())
         stopky.start()
 
     def accelerationCounter(self):
@@ -135,18 +135,18 @@ class Tehlicky(tkinter.Canvas):
 
     ## ----- platform:
 
-    def doskaBuild(self):
-        self.doskaX, self.doskaY, self.doskaWidth, self.doskaHeight = 300, 350, 80, 10
-        self.doska = self.canvas.create_rectangle(self.doskaX - (self.doskaWidth // 2),
-                                                  self.doskaY - (self.doskaHeight // 2),
-                                                  self.doskaX + (self.doskaWidth // 2),
-                                                  self.doskaY + (self.doskaHeight // 2),
+    def platformBuild(self):
+        self.platformX, self.platformY, self.platformWidth, self.platformHeight = 300, 350, 80, 10
+        self.platform = self.canvas.create_rectangle(self.platformX - (self.platformWidth // 2),
+                                                  self.platformY - (self.platformHeight // 2),
+                                                  self.platformX + (self.platformWidth // 2),
+                                                  self.platformY + (self.platformHeight // 2),
                                                   fill="gold")
 
-    def doskaMove(self, event):
-        distance = event.x - self.doskaX
-        self.canvas.move(self.doska, distance, 0)
-        self.doskaX = event.x
+    def platformMove(self, event):
+        distance = event.x - self.platformX
+        self.canvas.move(self.platform, distance, 0)
+        self.platformX = event.x
 
     ## ----- circle:
 
@@ -193,14 +193,14 @@ class Tehlicky(tkinter.Canvas):
                 time.sleep(self.acceleration)
 
             elif self.ballY >= (canvasHeight - ballYLimit):
-                doskaCoords = self.canvas.coords(self.doska)
+                platformCoords = self.canvas.coords(self.platform)
 
-                if ((doskaCoords[0] <= self.ballX <= doskaCoords[2]) or (
-                        doskaCoords[0] <= self.ballX - math.ceil(self.ballWidth / 2) <= doskaCoords[2]) or (
-                            doskaCoords[0] <= self.ballX + math.ceil(self.ballWidth / 2) <= doskaCoords[2])) and \
-                        doskaCoords[1] <= self.ballY + 1 + math.ceil(self.ballHeight / 2):
-                    if self.ballX + math.ceil(self.ballWidth / 2) <= doskaCoords[0] or self.ballX - math.ceil(
-                            self.ballWidth / 2) >= doskaCoords[2]:
+                if ((platformCoords[0] <= self.ballX <= platformCoords[2]) or (
+                     platformCoords[0] <= self.ballX - math.ceil(self.ballWidth / 2) <= platformCoords[2]) or (
+                     platformCoords[0] <= self.ballX + math.ceil(self.ballWidth / 2) <= platformCoords[2])) and \
+                     platformCoords[1] <= self.ballY + 1 + math.ceil(self.ballHeight / 2):
+                    if self.ballX + math.ceil(self.ballWidth / 2) <= platformCoords[0] or self.ballX - math.ceil(
+                            self.ballWidth / 2) >= platformCoords[2]:
                         self.ballXDirection = -self.ballXDirection
                     else:
                         self.ballYDirection = -self.ballYDirection
@@ -305,16 +305,16 @@ class Tehlicky(tkinter.Canvas):
 
     def highScore(self):
         with open("tabulka.txt", "r") as txt:
-            riadok = txt.readline().strip()
+            row = txt.readline().strip()
             score = []
-            while riadok:
-                menoEnd = riadok.find(" ")
-                meno = riadok[0:menoEnd]
-                timeMiddle = riadok.find(":")
-                minutes = riadok[menoEnd + 1:timeMiddle]
-                seconds = riadok[timeMiddle + 1:len(riadok)]
-                score.append((minutes, seconds, meno))
-                riadok = txt.readline().strip()
+            while row:
+                nameEnd = row.find(" ")
+                name = row[0:nameEnd]
+                timeMiddle = row.find(":")
+                minutes = row[nameEnd + 1:timeMiddle]
+                seconds = row[timeMiddle + 1:len(row)]
+                score.append((minutes, seconds, name))
+                row = txt.readline().strip()
 
         sortedScore = sorted(score)
 
@@ -332,7 +332,7 @@ class Tehlicky(tkinter.Canvas):
 
     ## ----- general
 
-    def cas(self):
+    def time(self):
         countDown = None
         countDownStart = 3
         countDownFinish = 0
@@ -350,10 +350,10 @@ class Tehlicky(tkinter.Canvas):
         self.circleBuild()
         time.sleep(0.3)
 
-        self.canvas.bind('<Button-1>', self.doskaMove)
+        self.canvas.bind('<Button-1>', self.platformMove)
 
-        self.cas = threading.Thread(target=self.accelerationCounter, args=())
-        self.cas.start()
+        self.time = threading.Thread(target=self.accelerationCounter, args=())
+        self.time.start()
         self.start = time.time()
 
         self.gameOngoing = True
@@ -362,21 +362,23 @@ class Tehlicky(tkinter.Canvas):
 
 class Word:
 
-    def __init__(self, cas, meno):
-        self.cas = cas
-        self.meno = meno
-        if self.meno == "":
-            self.meno = "Unknown"
-        self.createEntry(self.cas, self.meno)
+    def __init__(self, time, name):
+        self.time = time
+        if name == "":
+            self.name = "Unknown"
+        else:
+            self.name = name
+        self.createEntry(self.time, self.name)
 
-    def createEntry(self, cas, meno):
-        minuty = cas // timeConversionConstant
-        sekundy = cas % timeConversionConstant
-        if len(str(sekundy)) == 1: sekundy = "0" + str(sekundy)
-        entry = str(meno) + " " + str(minuty) + ":" + str(sekundy) + "\n"
-        self.zapis(entry)
+    def createEntry(self, time, name):
+        minutes = time // timeConversionConstant
+        seconds = time % timeConversionConstant
+        if len(str(seconds)) == 1:
+            seconds = "0" + str(seconds)
+        entry = str(name) + " " + str(minutes) + ":" + str(seconds) + "\n"
+        self.write(entry)
 
-    def zapis(self, entry):
+    def write(self, entry):
         with open("tabulka.txt", "a") as leaderBoard:
             leaderBoard.write(entry)
 
@@ -494,8 +496,8 @@ Tehlicky()
 ##
 ##        self.zlepole = [self.grass]
 ##
-##        self.build_doska()
-##        stopky = threading.Thread(target=self.cas, args=())
+##        self.build_platform()
+##        stopky = threading.Thread(target=self.time, args=())
 ##        stopky.start()
 ##
 ##
@@ -508,18 +510,18 @@ Tehlicky()
 ##
 #### ----- platform:
 ##
-##    def build_doska(self):
+##    def build_platform(self):
 ##        self.xd, self.yd, self.dxd, self.wd, self.hd = 300, 350, 1, 80, 10
 ##        self.idd = self.canvas.create_rectangle(self.xd - (self.wd // 2), self.yd - (self.hd // 2),
 ##                                                self.xd + (self.wd // 2), self.yd + (self.hd // 2),
 ##                                                fill="gold")
 ##
-##    def doska_move(self, event):        
+##    def platform_move(self, event):
 ##        d = event.x - self.xd
 ##        self.canvas.move(self.idd, d, 0)
 ##        self.xd = event.x
 ##
-####    def pohyb_doska(self, event):
+####    def pohyb_platform(self, event):
 ####        kliknute = event.keysym
 ####        if(self.canvas.coords(self.idd)[2] < self.w - 3 and (kliknute=='D' or kliknute == 'd')):
 ####            self.canvas.move(self.idd,5,0)
@@ -568,10 +570,10 @@ Tehlicky()
 ##                time.sleep(self.i)
 ##
 ##            elif self.yc >= (self.h - 100):
-##                doskacoords = self.canvas.coords(self.idd)
+##                platformcoords = self.canvas.coords(self.idd)
 ##               
-##                if ((doskacoords[0]  <= self.xc <= doskacoords[2] ) or (doskacoords[0] <= self.xc - math.ceil(self.wc/2) <= doskacoords[2]) or (doskacoords[0]<= self.xc + math.ceil(self.wc/2) <= doskacoords[2])) and  doskacoords[1] <= self.yc + 1 + math.ceil(self.hc / 2):
-##                    if self.xc + math.ceil(self.wc/2) <= doskacoords[0] or self.xc - math.ceil(self.wc/2) >= doskacoords[2] :
+##                if ((platformcoords[0]  <= self.xc <= platformcoords[2] ) or (platformcoords[0] <= self.xc - math.ceil(self.wc/2) <= platformcoords[2]) or (platformcoords[0]<= self.xc + math.ceil(self.wc/2) <= platformcoords[2])) and  platformcoords[1] <= self.yc + 1 + math.ceil(self.hc / 2):
+##                    if self.xc + math.ceil(self.wc/2) <= platformcoords[0] or self.xc - math.ceil(self.wc/2) >= platformcoords[2] :
 ##                        self.dxc = -self.dxc
 ##                    else:
 ##                        self.dyc = -self.dyc
@@ -713,7 +715,7 @@ Tehlicky()
 ##    
 #### ----- general
 ##
-##    def cas(self):
+##    def time(self):
 ##        self.cislo = None
 ##
 ##        for i in range(3, 0, -1):
@@ -734,11 +736,11 @@ Tehlicky()
 ##        time.sleep(0.3)       
 ##        
 ##
-##        self.canvas.bind('<Button-1>', self.doska_move)
-##        #self.canvas.bind_all('<Key>',self.pohyb_doska)
+##        self.canvas.bind('<Button-1>', self.platform_move)
+##        #self.canvas.bind_all('<Key>',self.pohyb_platform)
 ##        
-##        self.cas = threading.Thread(target=self.icko, args=())
-##        self.cas.start()
+##        self.time = threading.Thread(target=self.icko, args=())
+##        self.time.start()
 ##        self.start = time.time()
 ##
 ##        self.true = True        
@@ -747,12 +749,12 @@ Tehlicky()
 ##
 ##
 ##class Word:
-##    def __init__(self, cas, meno):
-##        self.cas = cas
+##    def __init__(self, time, meno):
+##        self.time = time
 ##        self.meno = meno
 ##        if self.meno == "":
 ##            self.meno = "Unknown"
-##        self.zmen(self.cas, self.meno)
+##        self.zmen(self.time, self.meno)
 ##
 ##    def zmen(self, zle, menoa):
 ##        self.minuty = zle // 60
