@@ -37,33 +37,25 @@ class Tehlicky(tkinter.Canvas):
         self.canvas.mainloop()
 
     def readyGame(self):
-        self.canvas.create_text(textCoordsX, 30,
-                                text="Welcome, player!", font="Papyrus 30")
-        self.canvas.create_text(60, 80,
-                                text="Some Info:", font="Papyrus 15 bold")
-        self.canvas.create_text(217, 110,
-                                text="* you move the               left & right with mouse", font="Papyrus 15")
-        self.canvas.create_text(185, 110,
-                                text="platform", fill="gold", font="Papyrus 15 bold")
-        self.canvas.create_text(275, 140,
-                                text="* you can hit the             once, meaning you have 1 extra life",
-                                font="Papyrus 15")
-        self.canvas.create_text(193, 140,
-                                text="ground", fill="green3", font="Papyrus 15 bold")
-        self.canvas.create_text(225, 170, text="* but then the               breaks and          appears",
-                                font="Papyrus 15")
-        self.canvas.create_text(170, 170,
-                                text="ground", fill="green3", font="Papyrus 15 bold")
-        self.canvas.create_text(340, 170, text="lava", fill="red", font="Papyrus 15 bold")
-        self.canvas.create_text(450, 200, text="und das ist nicht gut", fill="red", font="Papyrus 15 bold")
-        self.canvas.create_text(100, 240, text="Goal of this game?", font="Papyrus 15 bold")
-        self.canvas.create_text(260, 270, text="* break through the Earth`s atmosphere and go to space",
-                                font="Papyrus 15")
-        self.canvas.create_text(185, 300, text="* btw, do not destroy it all or you will lose", font="Papyrus 15")
-        self.canvas.create_text(300, 330,
-                                text="* we down here will still need some of it to protect us from UV & stuff",
-                                font="Papyrus 15")
-        self.canvas.create_text(300, 370, text="Press Enter whenever you feel like it~", font="Papyrus 15 bold")
+        rulesXYTextFillFont = [(300,30, "Welcome, player!", "black", "Papyrus 30"),
+                               (60, 80, "Some Info:", "black" , "Papyrus 15 bold"),
+                               (217, 110, "* you move the               left & right with mouse","black", "Papyrus 15"),
+                               (185, 110, "platform", "gold", "Papyrus 15 bold"),
+                               (275, 140, "* you can hit the             once, meaning you have 1 extra life", "black", "Papyrus 15"),
+                               (193, 140, "ground", "green3", "Papyrus 15 bold"),
+                               (225, 170, "* but then the               breaks and          appears", "black", "Papyrus 15"),
+                               (170, 170, "ground", "green3", "Papyrus 15 bold"),
+                               (340, 170, "lava", "red", "Papyrus 15 bold"),
+                               (450, 200, "und das ist nicht gut", "red", "Papyrus 15 bold"),
+                               (100, 240, "Goal of this game?", "black" , "Papyrus 15 bold"),
+                               (260, 270, "* break through the Earth`s atmosphere and go to space", "black" , "Papyrus 15"),
+                               (185, 300, "* btw, do not destroy it all or you will lose", "black" , "Papyrus 15"),
+                               (300, 330, "* we down here will still need some of it to protect us from UV & stuff", "black" , "Papyrus 15"),
+                               (300, 370, "Press Enter whenever you feel like it~", "black" , "Papyrus 15 bold")]
+
+        for rule in rulesXYTextFillFont:
+            x, y, txt, fll, fnt = rule
+            self.canvas.create_text(x, y, text=txt, fill=fll ,font=fnt)
 
         self.canvas.bind_all("<Key>", self.delete)
 
@@ -136,7 +128,9 @@ class Tehlicky(tkinter.Canvas):
     ## ----- platform:
 
     def platformBuild(self):
-        self.platformX, self.platformY, self.platformWidth, self.platformHeight = 300, 350, 80, 10
+        self.platformX, self.platformY = 300, 350
+        self.platformWidth, self.platformHeight =  80, 10
+        
         self.platform = self.canvas.create_rectangle(self.platformX - (self.platformWidth // 2),
                                                   self.platformY - (self.platformHeight // 2),
                                                   self.platformX + (self.platformWidth // 2),
@@ -152,8 +146,10 @@ class Tehlicky(tkinter.Canvas):
 
     def circleBuild(self):
         directions = (-2, -1, 1, 2)
-        self.ballX, self.ballY, self.ballXDirection, self.ballYDirection, self.ballWidth, self.ballHeight = 300, 200, randChoice(
-            directions), randChoice(directions), 20, 20
+        self.ballX, self.ballY = 300, 200
+        self.ballXDirection, self.ballYDirection = randChoice(directions), randChoice(directions)
+        self.ballWidth, self.ballHeight = 20, 20
+        
         self.ball = self.canvas.create_oval(self.ballX - (self.ballWidth // 2), self.ballY - (self.ballHeight // 2),
                                             self.ballX + (self.ballWidth // 2), self.ballY + (self.ballHeight // 2),
                                             fill="grey", outline="")
@@ -162,6 +158,8 @@ class Tehlicky(tkinter.Canvas):
         while self.gameOngoing:
             self.canvas.move(self.ball, self.ballXDirection, self.ballYDirection)
             self.ballX, self.ballY = self.ballX + self.ballXDirection, self.ballY + self.ballYDirection
+            ...
+            
             time.sleep(self.acceleration)
             ballYLimit = 100
             if self.ballY < ballYLimit:
@@ -228,6 +226,7 @@ class Tehlicky(tkinter.Canvas):
         self.groundLevel.append(self.lava)
         self.canvas.delete(self.grass)
         self.canvas.delete(self.ground)
+        
         text = self.canvas.create_text(textCoordsX, textCoordsY,
                                        text="Uh oh. Is it so hot in here or is it just me?",
                                        font="Papyrus 20 bold",
@@ -520,7 +519,7 @@ Tehlicky()
 ##        d = event.x - self.xd
 ##        self.canvas.move(self.idd, d, 0)
 ##        self.xd = event.x
-##
+
 ####    def pohyb_platform(self, event):
 ####        kliknute = event.keysym
 ####        if(self.canvas.coords(self.idd)[2] < self.w - 3 and (kliknute=='D' or kliknute == 'd')):
@@ -597,22 +596,21 @@ Tehlicky()
 ##
 ##                
 #### ----------------------
-##                
+                
 ##    def oops(self):
 ##        self.end = round(time.time() - self.start, 0)
 ##        self.zlepole.pop()
 ##        self.zlepole.append(self.lava)
 ##        self.canvas.delete(self.grass)
 ##        self.canvas.delete(self.ground)
-##        text = self.canvas.create_text(canvasWidth
-# // 2, canvasHeight // 2,
+##        text = self.canvas.create_text(canvasWidth// 2, canvasHeight // 2,
 ##                                       text="Uh oh. Is it so hot in here or is it just me?",
 ##                                       font="Papyrus 20 bold",
 ##                                       fill="red")
 ##        time.sleep(5)
 ##        self.canvas.delete(text)
 ##
-##
+
 ##    def you_lost(self):        
 ##        self.canvas.delete("all")
 ##        self.true = False
