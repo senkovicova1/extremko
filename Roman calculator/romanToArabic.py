@@ -2,28 +2,29 @@ import unittest
 import re
 
 
-def convertToInt(roman):
-    pole = ["I", "V", "X", "L", "C", "D", "M"]
+def convertToInt(romanNumber, letters ="IVXLCDM"):
     spolu = 0
     i = 0
     rad = 1000
-    if (roman == ""):
+    badCharInLetters = not all(c.isupper() for c in letters)
+    duplicatesInLetters = len(letters)!=(len(set(letters)))
+    if (romanNumber == "") or (letters == "") or (badCharInLetters) or (duplicatesInLetters):
         return -9999
-    for r in roman:
-        if r.upper() not in pole:
+    for r in romanNumber:
+        if r.upper() not in letters:
             return -9999
-    while i < (len(roman)):
+    while i < (len(romanNumber)):
 
-        number1, rad1 = getBase(roman[i].upper())
-        number2, rad2 = getBase(roman[i + 1].upper()) if i + 1 < len(roman) else (0, 0)
-        number3, rad3 = getBase(roman[i + 2].upper()) if i + 2 < len(roman) else (0, 0)
-        number4, rad4 = getBase(roman[i + 3].upper()) if i + 3 < len(roman) else (0, 0)
+        number1, rad1 = getBase(romanNumber[i].upper(), letters)
+        number2, rad2 = getBase(romanNumber[i + 1].upper(), letters) if i + 1 < len(romanNumber) else (0, 0)
+        number3, rad3 = getBase(romanNumber[i + 2].upper(), letters) if i + 2 < len(romanNumber) else (0, 0)
+        number4, rad4 = getBase(romanNumber[i + 3].upper(), letters) if i + 3 < len(romanNumber) else (0, 0)
 
         if number1 == number2 == number3 == number4:
             return -9999
 
         if number1 < number2:
-            if pole.index(roman[i + 1].upper()) - pole.index(roman[i].upper()) > 2:
+            if letters.index(romanNumber[i + 1].upper()) - letters.index(romanNumber[i].upper()) > 2:
                 return -9999
             if number3 == number1:
                 return -9999
@@ -72,21 +73,29 @@ def intToRoman(integer):
     return cislo
 
 
-def getBase(r):
-    if (r == "M"):
-        return (1000, 4)
-    if (r == "D"):
-        return (500, 3)
-    if (r == "C"):
-        return (100, 3)
-    if (r == "L"):
-        return (50, 2)
-    elif (r == "X"):
-        return (10, 2)
-    elif (r == "V"):
-        return (5, 1)
-    elif (r == "I"):
-        return (1, 1)
+def getBase(char, letters):
+    charInLetters = letters.find(char)
+    rad = int(charInLetters / 2)
+    if (charInLetters % 2) == 0:
+        number = 1
+    else:
+        number = 5
+    number = number * pow(10, rad)
+    return (number, rad+1)
+    # if (r == "M"):
+    #     return (1000, 4)
+    # if (r == "D"):
+    #     return (500, 3)
+    # if (r == "C"):
+    #     return (100, 3)
+    # if (r == "L"):
+    #     return (50, 2)
+    # elif (r == "X"):
+    #     return (10, 2)
+    # elif (r == "V"):
+    #     return (5, 1)
+    # elif (r == "I"):
+    #     return (1, 1)
 
 
 def getCislo(typ, rad):
@@ -300,7 +309,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_upper46(self):
         self.assertEqual("I", rimskaKalkulacka("L-XLIX"))
-        
+
     def test_upper47(self):
         self.assertEqual("XCIX", rimskaKalkulacka("L+XLIX"))
 
@@ -325,14 +334,38 @@ class TestStringMethods(unittest.TestCase):
     def test_upper54(self):
         self.assertEqual("Číslo mimo", rimskaKalkulacka("M-M"))
 
-    def test_upper54(self):
+    def test_upper55(self):
         self.assertEqual("I", rimskaKalkulacka("M-CMXCIX"))
 
-    def test_upper55(self):
+    def test_upper56(self):
         self.assertEqual("Zlý vstup", rimskaKalkulacka("XX//IV"))
 
-    def test_upper56(self):
+    def test_upper57(self):
         self.assertEqual("Zlý vstup", rimskaKalkulacka("-XX/IV"))
+
+    def test_upper58(self):
+        self.assertEqual(convertToInt("VIII", "IV"), 8)
+
+    def test_upper59(self):
+        self.assertEqual(convertToInt("AAA", "A"), 3)
+
+    def test_upper60(self):
+        self.assertEqual(convertToInt("IV","I"), -9999)
+
+    def test_upper61(self):
+        self.assertEqual(convertToInt("LXXXIX", "IVXL"), 89)
+
+    def test_upper62(self):
+        self.assertEqual(convertToInt("QVA", "IAVXLCQDM"), 1015)
+
+    def test_upper63(self):
+        self.assertEqual(convertToInt("SSS", "IVXLCDMPQRS"), 300000)
+
+    def test_upper64(self):
+        self.assertEqual(convertToInt("IV", ""), -9999)
+
+    def test_upper65(self):
+        self.assertEqual(convertToInt("IV", "IVXLX"), -9999)
 
 
 if __name__ == '__main__':
