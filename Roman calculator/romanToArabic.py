@@ -5,15 +5,12 @@ def convertToInt(romanNumber, letters ="IVXLCDM"):
     spolu = 0
     i = 0
     rad = 1000
-    badCharInLetters = not all(c.isupper() for c in letters)
-    duplicatesInLetters = len(letters)!=(len(set(letters)))
-    if (romanNumber == "") or (letters == "") or (badCharInLetters) or (duplicatesInLetters):
+    if badLetters(letters) or romanNumber == "":
         return -9999
     for r in romanNumber:
         if r.upper() not in letters:
             return -9999
     while i < (len(romanNumber)):
-
         number1, rad1 = getBase(romanNumber[i].upper(), letters)
         number2, rad2 = getBase(romanNumber[i + 1].upper(), letters) if i + 1 < len(romanNumber) else (0, 0)
         number3, rad3 = getBase(romanNumber[i + 2].upper(), letters) if i + 2 < len(romanNumber) else (0, 0)
@@ -49,6 +46,12 @@ def convertToInt(romanNumber, letters ="IVXLCDM"):
 
     return spolu
 
+def badLetters(romanLetters):
+    badCharInLetters = not all(c.isupper() for c in romanLetters)
+    duplicatesInLetters = len(romanLetters)!=(len(set(romanLetters)))
+    if (romanLetters == "") or (badCharInLetters) or (duplicatesInLetters):
+        return True    
+    return False
 
 def intToRoman(integer):
     cislo = ""
@@ -81,20 +84,6 @@ def getBase(char, letters):
         number = 5
     number = number * pow(10, rad)
     return (number, rad+1)
-    # if (r == "M"):
-    #     return (1000, 4)
-    # if (r == "D"):
-    #     return (500, 3)
-    # if (r == "C"):
-    #     return (100, 3)
-    # if (r == "L"):
-    #     return (50, 2)
-    # elif (r == "X"):
-    #     return (10, 2)
-    # elif (r == "V"):
-    #     return (5, 1)
-    # elif (r == "I"):
-    #     return (1, 1)
 
 
 def getCislo(typ, rad):
@@ -165,6 +154,15 @@ def rimskaKalkulacka(str):
     else:
         return "Zlý vstup"
 
+def maxNumber(romanLetters):
+    if badLetters(romanLetters):
+        return -9999
+    length = len(romanLetters)
+    result = "3"
+    if (length % 2 == 0):
+        result = "8"
+    rest = '9'*((length-1)//2)
+    return int(result + rest)
 
 class TestStringMethods(unittest.TestCase):
 
@@ -365,6 +363,96 @@ class TestStringMethods(unittest.TestCase):
 
     def test_upper65(self):
         self.assertEqual(convertToInt("IV", "IVXLX"), -9999)
+
+    def test_upper66(self):
+        self.assertEqual(convertToInt("IV", "IVXLX"), -9999)
+        
+    def test_upper67(self):
+        self.assertEqual(convertToInt("OOP", "-POKL"), -9999)
+        
+    def test_upper68(self):
+        self.assertEqual(convertToInt("DS", "ASDA"), -9999)
+        
+    def test_upper69(self):
+        self.assertEqual(convertToInt("DS", "ASD"), 15)
+        
+    def test_upper70(self):
+        self.assertEqual(convertToInt("MM", "IVXlCDM"), -9999)
+        
+    def test_upper71(self):
+        self.assertEqual(convertToInt("", "IVXL"), -9999)
+        
+    def test_upper72(self):
+        self.assertEqual(convertToInt("IV", ""), -9999)
+        
+    def test_upper73(self):
+        self.assertEqual(convertToInt("IV", "789LK"), -9999)
+        
+    def test_upper74(self):
+        self.assertEqual(convertToInt("-IV", "IVXL"), -9999)
+        
+    def test_upper75(self):
+        self.assertEqual(convertToInt("AAAS", "ASDFG"), -9999)
+
+    def test_upper76(self):
+        self.assertEqual(maxNumber("I"),3)
+
+    def test_upper77(self):
+        self.assertEqual(maxNumber("IV"), 8)
+        
+    def test_upper78(self):
+        self.assertEqual(maxNumber("IVX"), 39)
+        
+    def test_upper79(self):
+        self.assertEqual(maxNumber("ASDF"), 89)
+        
+    def test_upper80(self):
+        self.assertEqual(maxNumber("WERTA"), 399)
+        
+    def test_upper81(self):
+        self.assertEqual(maxNumber("BARLEY"), 899)
+        
+    def test_upper82(self):
+        self.assertEqual(maxNumber("VERITAS"), 3999)
+        
+    def test_upper83(self):
+        self.assertEqual(maxNumber("GRAFICKY"), 8999)
+        
+    def test_upper84(self):
+        self.assertEqual(maxNumber("POILKJHRT"), 39999)
+        
+    def test_upper85(self):
+        self.assertEqual(maxNumber("QWERTZUIOP"), 89999)
+        
+    def test_upper86(self):
+        self.assertEqual(maxNumber("ASDFGHJKLMN"), 399999)
+        
+    def test_upper87(self):
+        self.assertEqual(maxNumber("YXCVBNMLKJHG"), 899999)
+        
+    def test_upper88(self):
+        self.assertEqual(maxNumber("WERTAA"), -9999)
+        
+    def test_upper89(self):
+        self.assertEqual(maxNumber(""), -9999)
+        
+    def test_upper90(self):
+        self.assertEqual(maxNumber("12"), -9999)
+        
+    def test_upper91(self):
+        self.assertEqual(maxNumber("AA"), -9999)
+        
+    def test_upper92(self):
+        self.assertEqual(maxNumber("asdERT"), -9999)
+        
+    def test_upper93(self):
+        self.assertEqual(maxNumber("ASDFGHJKLMND"), -9999)
+        
+    def test_upper94(self):
+        self.assertEqual(maxNumber("ASDFGHaJKLMN"), -9999)
+        
+    def test_upper95(self):
+        self.assertEqual(maxNumber("YXCVBNMLKJHGi"), -9999)
 
 
 if __name__ == '__main__':
