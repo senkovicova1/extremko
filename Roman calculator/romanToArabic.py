@@ -1,7 +1,6 @@
 import unittest
 import re
 
-
 def convertToInt(romanNumber, letters ="IVXLCDM"):
     spolu = 0
     i = 0
