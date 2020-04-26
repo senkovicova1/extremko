@@ -454,6 +454,12 @@ class TestStringMethods(unittest.TestCase):
     def test_upper95(self):
         self.assertEqual(maxNumber("YXCVBNMLKJHGi"), -9999)
 
+    def test_upper96(self):
+        self.assertEqual(maxNumber("H A"), -9999)
+
+    def test_upper97(self):
+        self.assertEqual(maxNumber("."), -9999)
+
 
 if __name__ == '__main__':
     unittest.main()
