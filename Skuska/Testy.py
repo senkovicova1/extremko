@@ -448,7 +448,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(roman.getValue(), 53864314)
 
     def test4_IVXLCDMPQRSTUWYZ_12345atd(self):
-        roman = RomanNumberWithZero("01234567890abcdef")
+        roman = RomanNumberWithZero("O1234567890abcdef")
         roman.setValue(53865267)
         self.assertEqual(roman.getRomanNumber(), "fcccbaaa0985543211")
 
