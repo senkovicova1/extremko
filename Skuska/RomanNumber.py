@@ -1,3 +1,5 @@
+import math
+
 class RomanNumber():
     value = 3999
     letters = ""
@@ -251,3 +253,62 @@ class RomanNumberWithZero(RomanNumber):
 
     def restoreAllLetters(self):
         self.letters = self.allLetters
+
+    def calculator(self, expr):
+        if len(expr) < 3:
+            return False
+
+        op1 = ""
+        i = 0
+        if expr[i] == "-":
+            op1 += "-"
+            i += 1
+        while expr[i] not in "/*-+":
+            op1 += expr[i]
+            i += 1
+            if i == len(expr):
+                return False
+
+        operator = expr[i]
+        
+        if i+1 == len(expr):
+            return False
+        
+        op2 = expr[i+1:]
+
+        intOp1 = self.romanToInt(op1)
+        intOp2 = self.romanToInt(op2)
+
+        if intOp1 == -9999 or intOp2 == -9999:
+            print("here", intOp1, intOp2)
+            return False
+
+        if operator == "+":
+            self.value = intOp1 + intOp2
+            return True
+        if operator == "-":
+            self.value = intOp1 - intOp2
+            return True
+        if operator == "*":
+            self.value = intOp1 * intOp2
+            return True
+        if operator == "/":
+            if intOp2 == 0:
+                return False
+            self.value = math.floor(intOp1 / intOp2)
+            return True
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
