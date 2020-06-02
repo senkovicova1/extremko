@@ -103,6 +103,9 @@ class RomanNumber():
                                                                      100000000, 1000000000]:
                     return -9999
 
+            if number1 == number3 == number4:
+                return -9999
+
             if number1 < number2:
                 spolu += number2 - number1
                 rad = number1

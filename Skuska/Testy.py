@@ -52,9 +52,9 @@ class TestStringMethods(unittest.TestCase):
         roman = RomanNumber("123LCDMQF")
         self.assertEqual(roman.maximum(), 39999)
 
-    ##    def test1_max_ABCDEFGHIJKLMNOPQRST():
-    ##        roman = RomanNumber(er roman("ABCDEFGHIJKLMNOPQRST")
-    ##        self.assertEqual(roman.maximum(), 410065407)
+##    def test1_max_ABCDEFGHIJKLMNOPQRST():
+##        roman = UniversalRomanNumber("ABCDEFGHIJKLMNOPQRST")
+##        self.assertEqual(roman.maximum(), 410065407)
 
     # set, get int
     def test1_I_I_3(self):
@@ -317,11 +317,6 @@ class TestStringMethods(unittest.TestCase):
         roman.setValue(53864324)
         self.assertEqual(roman.getRomanNumber(), "ZUUUTSSSRQMPCCCXXIV")
 
-    ##    def test2_123(self):
-    ##        roman = RomanNumber("ABCDE")
-    ##        roman.setValue(15)
-    ##        self.assertEqual(roman.getRomanNumber(), "CB")
-
     def test3_ZlaAbeceda_Zero(self):
         roman = RomanNumberWithZero("OIVXLCDMSAC")
         self.assertEqual(roman.maximum(), 3999)
@@ -452,10 +447,10 @@ class TestStringMethods(unittest.TestCase):
         roman.setRomanNumber("ZuuuTSSSRQMPCCCXIV")
         self.assertEqual(roman.getValue(), 53864314)
 
-    # def test4_IVXLCDMPQRSTUWYZ_12345atd(self):
-    #   roman = RomanNumberWithZero("01234567890abcdef")
-    #   roman.setValue(53865267)
-    #   self.assertEqual(roman.getRomanNumber(), "fcccbaaa0985543211")
+    def test4_IVXLCDMPQRSTUWYZ_12345atd(self):
+        roman = RomanNumberWithZero("01234567890abcdef")
+        roman.setValue(53865267)
+        self.assertEqual(roman.getRomanNumber(), "fcccbaaa0985543211")
 
     def test4_IVXLCD_DCCLXXX_Zero(self):
         roman = RomanNumberWithZero("OIVXLCD")
