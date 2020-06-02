@@ -264,7 +264,8 @@ class RomanNumberWithZero(RomanNumber):
             op1 += "-"
             i += 1
         while expr[i] not in "/*-+":
-            op1 += expr[i]
+            if expr[i] != " ":
+                op1 += expr[i]
             i += 1
             if i == len(expr):
                 return False
@@ -274,13 +275,17 @@ class RomanNumberWithZero(RomanNumber):
         if i+1 == len(expr):
             return False
         
-        op2 = expr[i+1:]
+        op2 = expr[i+1:].replace(" ", "")
 
         intOp1 = self.romanToInt(op1)
+        if op1 == self.letters[0]:
+            intOp1 = 0
+         
         intOp2 = self.romanToInt(op2)
+        if op2 == self.letters[0]:
+            intOp2 = 0
 
         if intOp1 == -9999 or intOp2 == -9999:
-            print("here", intOp1, intOp2)
             return False
 
         if operator == "+":
