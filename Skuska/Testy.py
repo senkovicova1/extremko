@@ -1,6 +1,5 @@
 import unittest
-from RomanNumber import RomanNumber
-
+from RomanNumber import RomanNumber, RomanNumberWithZero
 
 class TestStringMethods(unittest.TestCase):
 
@@ -109,7 +108,6 @@ class TestStringMethods(unittest.TestCase):
     def test1_xXYy(self):
         roman = RomanNumber("xXYy")
         self.assertEqual(roman.maximum(), 89)
-
 
     ##Roman to integer
     ##Set Roman
@@ -276,16 +274,15 @@ class TestStringMethods(unittest.TestCase):
                 self.assertTrue(False)
         self.assertTrue(True)
 
-
     def test2_TestEfektivnosti(self):
-        for i in range(1000):  
+        for i in range(1000):
             roman = RomanNumber("IVXLCDMPQRSTUWY")
             roman.setRomanNumber("YWUSSSRMMMXLVIII")
             if (roman.getValue() != 16353048):
                 self.assertTrue(False)
         self.assertTrue(True)
 
-    #Integer to roman
+    # Integer to roman
     def test2_IVXLCDM_1(self):
         roman = RomanNumber()
         roman.setValue(1)
@@ -320,12 +317,218 @@ class TestStringMethods(unittest.TestCase):
         roman.setValue(53864324)
         self.assertEqual(roman.getRomanNumber(), "ZUUUTSSSRQMPCCCXXIV")
 
-##    def test2_123(self):
-##        roman = RomanNumber("ABCDE")
-##        roman.setValue(15)
-##        self.assertEqual(roman.getRomanNumber(), "CB")
+    ##    def test2_123(self):
+    ##        roman = RomanNumber("ABCDE")
+    ##        roman.setValue(15)
+    ##        self.assertEqual(roman.getRomanNumber(), "CB")
+
+    def test3_ZlaAbeceda_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMSAC")
+        self.assertEqual(roman.maximum(), 3999)
+
+    def test3_maxZlychPismeniek_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCI")
+        self.assertEqual(roman.maximum(), 3999)
+
+    def test3_prazdnyMax_Zero(self):
+        roman = RomanNumberWithZero("   ")
+        self.assertEqual(roman.maximum(), 3999)
+
+    # Maximum
+    def test3_max_I_Zero(self):
+        roman = RomanNumberWithZero("OI")
+        self.assertEqual(roman.maximum(), 3)
+
+    def test3_max_V_Zero(self):
+        roman = RomanNumberWithZero("OV")
+        self.assertEqual(roman.maximum(), 3)
+
+    def test3_max_IV_Zero(self):
+        roman = RomanNumberWithZero("OIV")
+        self.assertEqual(roman.maximum(), 8)
+
+    def test3_max_IVX_Zero(self):
+        roman = RomanNumberWithZero("OIVX")
+        self.assertEqual(roman.maximum(), 39)
+
+    def test3_max_IVXL_Zero(self):
+        roman = RomanNumberWithZero("OIVXL")
+        self.assertEqual(roman.maximum(), 89)
+
+    def test3_max_IVXLCD_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCD")
+        self.assertEqual(roman.maximum(), 899)
+
+    def test3_max_IVXLCDMQF_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMQF")
+        self.assertEqual(roman.minimum(), -39999)
+
+    def test3_OIVXLCD_0(self):
+        roman = RomanNumberWithZero("OIVXLCD")
+        self.assertTrue(roman.setValue(0))
+        self.assertEqual(roman.getValue(), 0)
+
+    def test3_OIVXLCD_minusMuch(self):
+        roman = RomanNumberWithZero("OIVXLCD")
+        self.assertFalse(roman.setValue(-5520))
+
+    def test3_OIVXLCD_minus(self):
+        roman = RomanNumberWithZero("OIVXLCD")
+        self.assertTrue(roman.setValue(-520))
+        self.assertEqual(roman.getValue(), -520)
+
+    def test4_IVXLCDM_I_Zero(self):
+        roman = RomanNumberWithZero()
+        roman.setRomanNumber("I")
+        self.assertEqual(roman.getValue(), 1)
+
+    def test4_IVXLCDM_MMMDCCCXCIV_Zero(self):
+        roman = RomanNumberWithZero()
+        roman.setRomanNumber("MMMDCCCXCIV")
+        self.assertEqual(roman.getValue(), 3894)
+
+    def test4_I_I_III_Zero(self):
+        roman = RomanNumberWithZero("OI")
+        roman.setRomanNumber("III")
+        self.assertEqual(roman.getValue(), 3)
+
+    def test4_IVX_X_Zero(self):
+        roman = RomanNumberWithZero("OIVX")
+        roman.setRomanNumber("X")
+        self.assertEqual(roman.getValue(), 10)
+
+    def test4_IVXLC_CCCLXXXIX_Zero(self):
+        roman = RomanNumberWithZero("OIVXLC")
+        roman.setRomanNumber("CCLXXXIX")
+        self.assertEqual(roman.getValue(), 289)
+
+    def test4_IVXLCDMPQRS_SQQQVII_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMPQRS")
+        roman.setRomanNumber("SQQQVII")
+        self.assertEqual(roman.getValue(), 130007)
+
+    def test4_IVXLCDMPQRSTUWY_YWUSSSRMMMXLVI_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMPQRSTUWY")
+        roman.setRomanNumber("YWUSSSRMMMXLVI")
+        self.assertEqual(roman.getValue(), 16353046)
+
+    def test4_IVXLCDMPQRS_SSSRMMMXLVI_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMPQRS")
+        roman.setRomanNumber("SSSRMMMXLVI")
+        self.assertEqual(roman.getValue(), 353046)
+
+    def test4_IVXLCDM_MMM_Zero(self):
+        roman = RomanNumberWithZero()
+        roman.setRomanNumber("MMM")
+        self.assertEqual(roman.getValue(), 3000)
+
+    def test4_IV_IV_Zero(self):
+        roman = RomanNumberWithZero("OIV")
+        roman.setRomanNumber("IV")
+        self.assertEqual(roman.getValue(), 4)
+
+    def test4_IV_OIV_Zero(self):
+        roman = RomanNumberWithZero("OIV")
+        self.assertFalse(roman.setRomanNumber("OIV"))
+        self.assertEqual(roman.getValue(), 0)
+
+    def test4_IV_VIII_Zero(self):
+        roman = RomanNumberWithZero("OIV")
+        roman.setRomanNumber("VIII")
+        self.assertEqual(roman.getValue(), 8)
+
+    def test4_ABCD_DCCC_Zero(self):
+        roman = RomanNumberWithZero("QABCD")
+        roman.setRomanNumber("DCCC")
+        self.assertEqual(roman.getValue(), 80)
+
+    def test4_IVXL_LXXXIX_Zero(self):
+        roman = RomanNumberWithZero("OIVXL")
+        roman.setRomanNumber("LXXXIX")
+        self.assertEqual(roman.getValue(), 89)
+
+    def test4_IVXLCDMPQRSTUWYZ_ZUUUTSSSRQMPCCCXIV_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMPQRSTuWYZ")
+        roman.setRomanNumber("ZuuuTSSSRQMPCCCXIV")
+        self.assertEqual(roman.getValue(), 53864314)
+
+    # def test4_IVXLCDMPQRSTUWYZ_12345atd(self):
+    #   roman = RomanNumberWithZero("01234567890abcdef")
+    #   roman.setValue(53865267)
+    #   self.assertEqual(roman.getRomanNumber(), "fcccbaaa0985543211")
+
+    def test4_IVXLCD_DCCLXXX_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCD")
+        roman.setRomanNumber("DCCLXXX")
+        self.assertEqual(roman.getValue(), 780)
+
+    def test4_TestEfektivnostiPatiek_Zero(self):
+        roman = RomanNumberWithZero("OIVXLCDMPQRSTUW")
+        for i in range(0, 1000):
+            roman.setRomanNumber("WUSSSRMMMXLVIII")
+            if roman.getValue() != 6353048:
+                self.assertTrue(False)
+        self.assertTrue(True)
+
+    def test4_TestEfektivnosti_Zero(self):
+        for i in range(0, 1000):
+            roman = RomanNumberWithZero("OIVXLCDMPQRSTUWY")
+            roman.setRomanNumber("YWUSSSRMMMXLVIII")
+            if roman.getValue() != 16353048:
+                self.assertTrue(False)
+        self.assertTrue(True)
+
+    def test4_IVXLCDM_1_Zero(self):
+        roman = RomanNumberWithZero()
+        roman.setValue(1)
+        self.assertEqual(roman.getRomanNumber(), "I")
 
 
+    def test4_IVXLCDM_3896_Zero(self):
+        roman = RomanNumberWithZero()
+        roman.setValue(3896)
+        self.assertEqual(roman.getRomanNumber(), "MMMDCCCXCVI")
+
+
+    def test4_I_I_3_Zero(self):
+        roman = RomanNumberWithZero("OI")
+        roman.setValue(3)
+        self.assertEqual(roman.getRomanNumber(), "III")
+
+
+    def test4_IVXLCDM_0_Zero(self):
+        roman = RomanNumberWithZero()
+        self.assertTrue(roman.setValue(0))
+
+
+    def test4_IVXLCDM_NO_NUMBER_Zero(self):
+        roman = RomanNumberWithZero()
+        self.assertTrue(roman.setValue(0))
+        self.assertEqual(roman.getRomanNumber(), "O")
+
+
+    def test4_IVXLCDM_NO_NUMBER_MAX_Zero(self):
+        roman = RomanNumberWithZero()
+        self.assertFalse(roman.setValue(4000))
+        self.assertEqual(roman.getRomanNumber(), "O")
+
+
+    def test4_IVMcisla(self):
+        roman = RomanNumberWithZero("OIVXL CDM1 2345 6789")
+        roman.setValue(-59293105)
+        self.assertEqual(roman.getRomanNumber(), "-9684424MMMCV")
+
+
+    def test4_opak(self):
+        roman = RomanNumberWithZero("OIVXL CDM1 2345 6789")
+        roman.setRomanNumber("-9684424MMMCVII")
+        self.assertEqual(roman.getRomanNumber(), "-9684424MMMCVII")
+
+
+    def test4_naCislo(self):
+        roman = RomanNumberWithZero("OIVXL CDM1 2345 6789")
+        roman.setRomanNumber("-9684424MMMCVII")
+        self.assertEqual(roman.getValue(), -59293107)
 
 if __name__ == '__main__':
     unittest.main()
